@@ -5,9 +5,11 @@ import java.util.*;
 public class AddressBookMain {
 
 	public static void main(String[] args) {
+
 		Scanner sc = new Scanner(System.in);
 		AddressBook addressBook = new AddressBook();
 		Map<String, AddressBook> addressBookMap = new HashMap<String, AddressBook>();
+
 		while (true) {
 			System.out.println("1. New Address Book");
 			System.out.println("2. Select Address Book");
@@ -15,7 +17,9 @@ public class AddressBookMain {
 			System.out.println("4. Search Contact Data");
 			System.out.println("5. View Contact Data");
 			System.out.println("6. Count Contacts ");
-			System.out.println("7. Exit");
+			System.out.println("7. Write data");
+			System.out.println("8. Read data");
+			System.out.println("9. Exit");
 			System.out.print("Enter Your choice: ");
 			int choice = sc.nextInt();
 			sc.nextLine();
@@ -26,7 +30,7 @@ public class AddressBookMain {
 					sc.nextLine();
 					addressBookMap.put(bookName, new AddressBook());// adding bookname as a key and vlue is allocating
 					// memory for addressbook obj
-					addressBook.addressBookOptions(addressBookMap.get(bookName));// call addressbookoption method with
+					addressBook.addressBookOptions(addressBookMap.get(bookName));// call addressbook option method with
 					// passing key of hashmap
 					break;
 				case 2:
@@ -43,10 +47,10 @@ public class AddressBookMain {
 					break;
 				case 3:
 					System.out.println("List of available Address Book : ");
-					Set keysit = addressBookMap.keySet();// retrived keys from hashmap to show addressbooklist
-					Iterator it = keysit.iterator();
-					while (it.hasNext()) {
-						System.out.println(it.next());
+					Set keys1 = addressBookMap.keySet();// retrived keys from hashmap to show addressbooklist
+					Iterator i1 = keys1.iterator();
+					while (i1.hasNext()) {
+						System.out.println(i1.next());
 					}
 					System.out.println("Enter Address Book name to be delete: ");
 					name = sc.nextLine();
@@ -61,11 +65,20 @@ public class AddressBookMain {
 					addressBook.viewByOption(addressBookMap);
 					break;
 				case 6:
-					System.out.println("Welcome to the counter");
+					System.out.println("Welcome to the couter");
 					addressBook.countByOption();
 					break;
 				case 7:
-					sc.close();// for closing the programme
+					// System.out.println("Contact Details ");
+					AddressBookFileIO addressBookFileIO = new AddressBookFileIO();
+					addressBookFileIO.writeData(addressBookMap);
+					break;
+				case 8:
+					// System.out.println("Contact Details ");
+					AddressBookFileIO addressBookFileIO2 = new AddressBookFileIO();
+					System.out.println(addressBookFileIO2.readData());
+				case 9:
+					sc.close();// for closing the Scanner Class
 					return;
 				default:
 					System.out.println("You Entered Invalid Choice....!");
